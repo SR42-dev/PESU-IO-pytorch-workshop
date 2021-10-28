@@ -1,0 +1,130 @@
+Introductions :
+
+	- 1970s : statistics boom, increasing trust in computers fo calculations
+	- Boston housing problem : dataset of houses & their features, predict the price
+	- For linear regression : find a line with minimum average distance from all datapoints
+	- Refer ML basics course & handwritten notes
+
+Regression :
+
+	- linear : <covered>, y = mx+c
+	- multiple linear : 
+		- hyperplanes instead of lines
+		- minimize perpendicular distance in hyperspace
+		- y = m1x1 + m2x2 + ... + c
+	- polynomial regression :
+		- non linear trends
+		- <machine learning part ends here>
+
+Deep learning introduction :
+
+	- mimicking how brains work with algorithms
+	- e.g; transformer model - used in NLP, generate human language (write with transformer)
+	       GANs - generate images of nonexistent humans and other objects (dall-e)
+
+	- MNIST : dataset of handwritten digits <look up for alphabets>
+
+	- goal : to minimize error of prediction as much as model building by changing weights (dependent variables => x in y = f(x))
+	- neural network unit -> neuron -> regression model
+
+Error minimization :
+	
+	- error = E(x) = y(predicted) - y(actual)
+		       = mx+c - y(actual) ; assuming linear regression model
+	- minimizing E(x) wrt m and c gives you the closest model
+	- error functions must be convex, as otherwise there will be no global minima
+	- square error function -> minima will be the point pointed to by the tangents (slope = 0)(gradient descent algorithm, adam compiler)
+	- issues with gradient descent : doesnt always work when 2 local minima exists
+	- momentum method : when you have a shallow local minima, it can be detected by low momentum change across it (assuming the point to be a ball rolling down the graph)
+	- <look up different kinds of error functions like nn.MSELoss()>
+
+Bias :
+
+	- Threshold value that limits the output
+	- e.g.; in linear regression, the bias would be the y intercept
+	
+Activation function :
+
+	- provides non linearity to a linear regression model
+	- can be used for normalization e.g.; sigmoid function (1/(1+e^-x)) brings all values between 0 and 1 
+	- e.e.; torch.nn.ReLU()
+	- special functions are usually added to the last layer (softmax) to ensure that sum of resultant probabilities from the neurons in the last layer adds up to 1
+	- softmax activation function outputs probabilities that sum up to 1 
+	
+Losses :
+
+	- if test loss is good and training loss is good -> good model
+	- if test loss is bad and training loss is good -> overfitting
+	- if test loss is bad and training loss is bad -> you're shit at coding
+	- if test loss is good and training loss is bad -> you got very lucky
+	
+Neural networks :
+	
+	- bunching more neurons with individual functions and aggregating their predictions into more neurons to produce a prediction
+	- <look up back propagation & back tracking>
+	- Input layer -> hidden layer(s) -> output layer
+	- Each neuron has a regression & bias associated with it
+	- overfitting : when a model fits datapoints so perfectly that it performs perfectly on training dataset but on nothing else
+	- overfitting is avoided by linear regression models
+	- overfitting is also avoided by splitting dataset into train & test parts
+	- before feeding data into model, convert to (input, label) format (array of these elements make a dataloader object (iterable))
+	- move the test & train data to the gpu if available (cuda.is_available() & to_device())
+	- sequential nn => layer after layer type (as seen in init funtion of class NeuralNetwork, )
+	
+Coding component theory :
+	
+	- <refer code>
+ 	- PyTorch is useful for manual neural network construction, while tensorflow & sklearn are direct and pre-packaged
+	- Computation graph : essentially an inorder binary tree containing the expression -> model stored in pytorch backend
+	- Gradient refers to error
+
+Dataloaders : 
+	
+	- provides an iterable over a given dataset in the form of batches
+	- batches are loaded into the model training loop
+	- helps make data loading parallel and increases speed
+	
+Pytorch conversion to tensor functions :
+
+	- torch.tensor(data)
+	- torch.from_numpy(np_array)
+	- torch.ones_like(x_data) # creates tensor of size of x_data filled with 1s
+	- torch.rand(shape) # shape supplied as list
+	- torch.ones(shape)
+	- torch.zeros(shape)
+	
+<refer pytorch hackerspace slideshow>
+
+Theory resources :
+
+- 3Blue1Brown 4 video neural network playlist 
+- Towards data science numpy cheat sheet
+
+Convolutional Neural Networks :
+
+	- captures spatial information & relevant features, reduces dimensionality
+	- closer to the human brain in operation than ANNs
+	- essentially filters to converge a 3d dataset (e.g.; an image w/ 3 valued pixels (rgb/hsv)) into a 2d one (feature extraction) to be fed into a network of appropriate depth 
+	- can also be used to expand into larger networks
+	- convolution operation : 
+		- 2 inputs -> image & kernel
+		- image pixel values are processed using the kernel instructions and a smaller image is produced with the processed pixel values
+		- <refer notebook>
+	- pooling : dimension decreasing convolution
+	- padding : padding added to get convoluted result back to original size
+	- nn.Conv2d(in_channels =, out_channels =, kernel_size =, stride =,) 
+		- in channels -> input matrix size
+		- out channels -> output matrix size
+		- kernel size -> kernal dimensions
+		- stride -> evaluation step size
+
+Transfer learning :
+
+	- a car mechanic can identify bikes faster than a programmer
+	- transferring convolution filters from similar models to the current one to get an accurate prediction without training
+	- high accuracy in very less time
+	
+
+
+		
+		
